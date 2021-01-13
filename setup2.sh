@@ -2,6 +2,8 @@
 
 cd /autograder/source
 source ./config.sh
+echo "HELLO WORLD"
+ls
 
 mkdir -p /root/.ssh
 cp ssh_config /root/.ssh/config
