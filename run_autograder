@@ -6,20 +6,15 @@ source ./config.sh
 # Update assignment files
 cd /autograder/source/lfs
 git pull origin master
-
-# Copy updated files to autograder
-rm -rf autograder/instructor autograder/stencil
-cp -r instructor stencil autograder
  
 
 # Run the actual autograder
 mkdir /autograder/grading
-cd /autograder/lfs
-git pull
-cp -r /autograder/lfs/$YEAR/$ASSIGNMENT/* /autograder/grading/
+cp -r /autograder/source/lfs/$YEAR/$ASSIGNMENT/* /autograder/grading/
 cp -r /autograder/submission/* /autograder/grading/
 
-
+cd /autograder/source
+python3 run_autograder.py /autograder/grading/$ASSIGNMENT.rkt /autograder/grading/tests /autograder/grading/wheats /autograder/grading/chaffs
 
 
 

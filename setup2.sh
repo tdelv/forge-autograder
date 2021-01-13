@@ -15,6 +15,7 @@ ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
 git clone git@github.com:tnelson/lfs.git
 
 chmod +x run_autograder
+mv run_autograder /autograder/run_autograder
 
 cd /autograder
 
