@@ -34,5 +34,5 @@ apt-get clean
 git clone https://github.com/tnelson/Forge.git
 cd Forge/forge
 git checkout no-state
-Y | raco pkg install
+raco pkg install --deps search-auto
 
