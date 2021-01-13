@@ -29,9 +29,9 @@ apt-get install -y racket
 apt-get clean
 
 # # Install forge
-# raco pkg install forge
+# raco pkg install forge 
 
-git clone https://github.com/tnelson/forge.git
+git clone https://github.com/tnelson/Forge.git
 cd Forge/forge
 git checkout no-state
 raco pkg install
