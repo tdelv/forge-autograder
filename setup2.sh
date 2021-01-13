@@ -2,8 +2,6 @@
 
 cd /autograder/source
 source ./config.sh
-echo "HELLO WORLD"
-ls
 
 mkdir -p /root/.ssh
 cp ssh_config /root/.ssh/config
@@ -32,5 +30,5 @@ apt-get clean
 git clone https://github.com/tnelson/Forge.git
 cd Forge/forge
 git checkout no-state
-raco pkg install --deps search-auto
+raco pkg install --auto --no-docs
 
