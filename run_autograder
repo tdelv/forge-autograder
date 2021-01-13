@@ -4,8 +4,8 @@ cd /autograder/source
 source ./config.sh
 
 # Update assignment files
-git reset HEAD --hard
-git pull origin $ASSIGNMENT
+cd /autograder/source/lfs
+git pull origin master
 
 # Copy updated files to autograder
 rm -rf autograder/instructor autograder/stencil
@@ -13,20 +13,36 @@ cp -r instructor stencil autograder
  
 
 # Run the actual autograder
-cd /autograder/source/autograder
-racket run_autograder.rkt
-
-# Download latest results->gradescope report converter
-cd "/autograder/result-processing"
-git reset HEAD --hard
+mkdir /autograder/grading
+cd /autograder/lfs
 git pull
+cp -r /autograder/lfs/$YEAR/$ASSIGNMENT/* /autograder/grading/
+cp -r /autograder/submission/* /autograder/grading/
 
-# Compile the results
-cd /autograder/results
-jq --slurp -c '.' */results.json > raw_results.json
 
-# Convert results to gradescope's format and location
-npm i @types/node
-ts-node "/autograder/result-processing/gradescope_report.ts" raw_results.json results.json /autograder/source/instructor/points.json
+
+
+
+
+# cd /autograder/source/autograder
+# racket run_autograder.rkt
+
+
+
+
+
+
+# # Download latest results->gradescope report converter
+# cd "/autograder/result-processing"
+# git reset HEAD --hard
+# git pull
+
+# # Compile the results
+# cd /autograder/results
+# jq --slurp -c '.' */results.json > raw_results.json
+
+# # Convert results to gradescope's format and location
+# npm i @types/node
+# ts-node "/autograder/result-processing/gradescope_report.ts" raw_results.json results.json /autograder/source/instructor/points.json
 
 
