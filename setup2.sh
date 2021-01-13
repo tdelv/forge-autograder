@@ -14,6 +14,8 @@ ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
 # Initialize git repo with assignment files
 git clone git@github.com:tnelson/lfs.git
 
+chmod +x run_autograder
+
 cd /autograder
 
 # Install racket
