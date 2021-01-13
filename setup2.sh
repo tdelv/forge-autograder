@@ -15,7 +15,7 @@ ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
 git init
 git remote add origin git@github.com:tnelson/lfs.git
 git fetch --all
-git reset --hard origin/master 
+git pull origin master
 
 
 cd /autograder
