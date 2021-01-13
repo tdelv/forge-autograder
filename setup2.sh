@@ -14,11 +14,7 @@ chmod 0600 /root/.ssh/deploy_key
 ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
 
 # Initialize git repo with assignment files
-git init
-git remote add origin git@github.com:tnelson/lfs.git
-git fetch --all
-git pull origin master
-
+git clone git@github.com:tnelson/lfs.git
 
 cd /autograder
 
