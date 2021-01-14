@@ -9,12 +9,8 @@ git pull origin master
  
 
 # Run the actual autograder
-mkdir /autograder/grading
-cp -r /autograder/source/lfs/$YEAR/$ASSIGNMENT/* /autograder/grading/
-cp -r /autograder/submission/* /autograder/grading/
-
 cd /autograder/source
-python3 run_autograder.py /autograder/grading/$ASSIGNMENT.rkt /autograder/grading/tests /autograder/grading/wheats /autograder/grading/chaffs
+python3 run_autograder.py /autograder/submission/ /autograder/source/lfs/ /autograder/source/assignment_data.json
 
 
 

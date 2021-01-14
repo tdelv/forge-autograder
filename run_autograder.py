@@ -26,29 +26,49 @@ def run_pair(code_file, test_file):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 5:
-        print("Usage: python3 run_autograder.py <code> <tests> <wheats> <chaffs>")
+    if len(sys.argv) != 4:
+        print("Usage: python3 run_autograder.py <submission> <lfs> <assignment data>")
         exit(1)
 
-    (_, code_file, tests, wheats, chaffs) = sys.argv
+    _, submission_folder, lfs_folder, assignment_data_file = sys.argv
+
+    assignment_data = json.load(assignment_data_file)
+    assignment_name, year, sub_assignments = \
+        assignment_data["assignment_name"],  \
+        assignment_data["year"],             \
+        assignment_data["sub_assignments"]
 
     os.mkdir("temp")
 
-    test_results = [run_pair(code_file, test_file) for test_file in glob.glob(f"{tests}/*")]
-    wheat_results = [run_pair(wheat_file, code_file) for wheat_file in glob.glob(f"{wheats}/*")]
-    chaff_results = [run_pair(chaff_file, code_file) for chaff_file in glob.glob(f"{chaffs}/*")]
+    results = []
+
+    for sub_assignment in sub_assignments:
+        name, file = sub_assignment["name"], sub_assignment["file"]
+        code, tests = sub_assignment["code"], sub_assignment["tests"]
+
+        sub_assignment_dir = f"{lfs}/{year}/{assignment}/{name}"
+
+        code_file = f"{submission_folder}/{file}"
+        test_dir = f"{sub_assignment_dir}/tests"
+        wheat_dir = f"{sub_assignment_dir}/wheats"
+        chaff_dir = f"{sub_assignment_dir}/chaffs"
+
+        test_results = [run_pair(code_file, test_file) for test_file in glob.glob(f"{test_dir}/*")] if code else None
+        wheat_results = [run_pair(wheat_file, code_file) for wheat_file in glob.glob(f"{wheat_dir}/*")] if tests else None
+        chaff_results = [run_pair(chaff_file, code_file) for chaff_file in glob.glob(f"{chaff_dir}/*")] if tests else None
+
+        test_results = list(map(json.loads, test_results))
+        wheat_results = list(map(json.loads, test_results))
+        chaff_results = list(map(json.loads, test_results))
+
+        results.append({
+                "functionality": test_results,
+                "wheats": wheat_results,
+                "chaffs": chaff_results
+            })
+
 
     shutil.rmtree("temp")
-
-    test_results = list(map(json.loads, test_results))
-    wheat_results = list(map(json.loads, test_results))
-    chaff_results = list(map(json.loads, test_results))
-
-    results = {
-            "test_results": test_results,
-            "wheat_results": wheat_results,
-            "chaff_results": chaff_results
-        }
 
     print(json.dumps(results))
 
