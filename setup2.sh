@@ -22,6 +22,7 @@ cd /autograder
 # Install racket
 apt update
 apt-get update -y
+apt install default-jre
 apt install software-properties-common -y
 add-apt-repository ppa:plt/racket -y
 apt-get install -y racket
