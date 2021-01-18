@@ -62,6 +62,7 @@ if __name__ == "__main__":
         chaff_results = list(map(json.loads, test_results))
 
         results.append({
+                "name": name,
                 "functionality": test_results,
                 "wheats": wheat_results,
                 "chaffs": chaff_results
