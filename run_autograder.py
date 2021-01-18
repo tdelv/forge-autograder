@@ -20,7 +20,7 @@ def run_pair(code_file, test_file):
     forge_to_grading(test_file, "temp/test.rkt", "code.rkt")
     os.system("racket temp/test.rkt > temp/result")
 
-    with open("temp/result.rkt", "r") as f:
+    with open("temp/result", "r") as f:
         result = f.read()
 
     return result
