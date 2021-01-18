@@ -32,7 +32,8 @@ if __name__ == "__main__":
 
     _, submission_folder, lfs_folder, assignment_data_file = sys.argv
 
-    assignment_data = json.load(assignment_data_file)
+    with open(assignment_data_file, "r") as f:
+        assignment_data = json.load(f)
     assignment_name, year, sub_assignments = \
         assignment_data["assignment_name"],  \
         assignment_data["year"],             \
