@@ -47,7 +47,7 @@ if __name__ == "__main__":
         name, file = sub_assignment["name"], sub_assignment["file"]
         code, tests = sub_assignment["code"], sub_assignment["tests"]
 
-        sub_assignment_dir = f"{lfs}/{year}/{assignment}/{name}"
+        sub_assignment_dir = f"{lfs_folder}/{year}/{assignment_name}/{name}"
 
         code_file = f"{submission_folder}/{file}"
         test_dir = f"{sub_assignment_dir}/tests"
