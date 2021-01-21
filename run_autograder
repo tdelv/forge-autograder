@@ -6,10 +6,15 @@ source ./config.sh
 # Update assignment files
 cd /autograder/source/lfs
 git pull origin master
+
+# Update forge
+cd /autograder/Forge
+git pull
  
 
 # Run the actual autograder
 cd /autograder/source
+rm -rf temp
 python3 run_autograder.py /autograder/submission/ /autograder/source/lfs/ /autograder/source/assignment_data.json
 
 
