@@ -21,7 +21,7 @@ def run_pair(code_file, test_file):
     os.system("racket temp/test.rkt > temp/result")
 
     with open("temp/result", "r") as f:
-        result = f.read().split("\n")[-1]
+        result = list(filter(lambda line: line != "", f.read().split("\n")))[-1]
 
     return result
 
