@@ -60,8 +60,8 @@ if __name__ == "__main__":
         chaff_results = [run_pair(chaff_file, code_file) for chaff_file in glob.glob(f"{chaff_dir}/*")] if tests else None
 
         test_results = list(map(json.loads, test_results))
-        wheat_results = list(map(json.loads, test_results))
-        chaff_results = list(map(json.loads, test_results))
+        wheat_results = list(map(json.loads, wheat_results))
+        chaff_results = list(map(json.loads, chaff_results))
 
         results.append({
                 "name": name,
