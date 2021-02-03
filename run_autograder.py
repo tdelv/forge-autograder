@@ -55,9 +55,9 @@ if __name__ == "__main__":
         wheat_dir = f"{sub_assignment_dir}/wheats"
         chaff_dir = f"{sub_assignment_dir}/chaffs"
 
-        test_results = [run_pair(code_file, test_file) for test_file in glob.glob(f"{test_dir}/*")] if code else None
-        wheat_results = [run_pair(wheat_file, code_file) for wheat_file in glob.glob(f"{wheat_dir}/*")] if tests else None
-        chaff_results = [run_pair(chaff_file, code_file) for chaff_file in glob.glob(f"{chaff_dir}/*")] if tests else None
+        test_results = [run_pair(code_file, test_file) for test_file in glob.glob(f"{test_dir}/*")] if code else []
+        wheat_results = [run_pair(wheat_file, code_file) for wheat_file in glob.glob(f"{wheat_dir}/*")] if tests else []
+        chaff_results = [run_pair(chaff_file, code_file) for chaff_file in glob.glob(f"{chaff_dir}/*")] if tests else []
 
         test_results = list(map(json.loads, test_results))
         wheat_results = list(map(json.loads, wheat_results))
