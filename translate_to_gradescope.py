@@ -21,8 +21,8 @@ if __name__ == "__main__":
                 total += 1
 
                 sub_results_tests.append({
-                            "score": 1.0 if passed else 0.0,
-                            "max_score": 1.0,
+                            "score": 0,
+                            "max_score": 0 if passed else 1,
                             "name": name,
                             "number": f"{sub_assignment_number}.{test_suite_number}.{test_result_number}",
                             "output": "Test passed!" if passed else "Test failed.",
@@ -34,12 +34,58 @@ if __name__ == "__main__":
                     "max_score": total,
                     "name": f"Functionality for {sub_assignment['name']}",
                     "number": f"{sub_assignment_number}.{test_suite_number}",
-                    "visibility": "after_published",
+                    "visibility": "hidden",
                 })
             gradescope_results += sub_results_tests
 
+        wheat_fail_tests = set()
+        for wheat_number, wheat in enumerate(sub_assignment["wheats"]):
+            wheat_results = wheat["results"]
+            failed = {test["name"] for test in wheat_results if not test["passed?"]}
+            if failed:
+                wheat_fail_tests = wheat_fail_tests.union(failed)
+                gradescope_results.append({
+                    "score": 0,
+                    "max_score": 1,
+                    "name": f"{sub_assignment['name']}: wheat {wheat_number}",
+                    "output": f"Wheat failed on these tests:\n{failed}\n"\
+                        + "These tests are invalid and cannot be used to catch chaffs.",
+                    "visibility": "after_published",
+                })
+            else:
+                gradescope_results.append({
+                    "score": 0,
+                    "max_score": 0,
+                    "name": f"{sub_assignment['name']}: wheat {wheat_number}",
+                    "output": f"Wheat passed!",
+                    "visibility": "after_published",
+                })
+
+        for chaff in sub_assignment["chaffs"]:
+            chaff_results = chaff["results"]
+            failed = {test["name"] for test in chaff_results if not test["passed?"]}
+            # can't use invalid tests to catch chaffs
+            failed = failed - wheat_fail_tests
+            if failed:
+                gradescope_results.append({
+                    "score": 0,
+                    "max_score": 0,
+                    "name": f"{sub_assignment['name']}: chaff {chaff['name']}",
+                    "output": f"Chaff caught with these tests:\n{failed}",
+                    "visibility": "after_published",
+                })
+            else:
+                gradescope_results.append({
+                    "score": 0,
+                    "max_score": 0,
+                    "name": f"{sub_assignment['name']}: chaff {chaff['name']}",
+                    "output": f"Chaff not caught.",
+                    "visibility": "after_published",
+                })
+
+
     full_report = {
-            "score": 0.0,
+            "score": 0,
             "output": "Your code ran successfully! You can see your results after we publish your grades.",
             "visibility": "visible",
             "stdout_visibility": "hidden",

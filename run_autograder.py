@@ -13,7 +13,7 @@ def forge_to_grading(from_file, to_file, code_file):
 
     with open(to_file, "w") as f:
         f.write(to_contents)
-        
+
 
 def run_pair(code_file, test_file):
     shutil.copyfile(code_file, "temp/code.rkt")
@@ -56,8 +56,18 @@ if __name__ == "__main__":
         chaff_dir = f"{sub_assignment_dir}/chaffs"
 
         test_results = [run_pair(code_file, test_file) for test_file in glob.glob(f"{test_dir}/*")] if code else []
-        wheat_results = [run_pair(wheat_file, code_file) for wheat_file in glob.glob(f"{wheat_dir}/*")] if tests else []
-        chaff_results = [run_pair(chaff_file, code_file) for chaff_file in glob.glob(f"{chaff_dir}/*")] if tests else []
+        wheat_results = []
+        if tests:
+            for wheat_file in glob.glob(f"{wheat_dir}/*"):
+                wheat_results.append({
+                    "name": os.path.basename(wheat_file),
+                    "results": run_pair(wheat_file, code_file),
+                }
+            for chaff_file in glob.glob(f"{chaff_dir}/*"):
+                chaff_results.append({
+                    "name": os.path.basename(chaff_file),
+                    "results": run_pair(chaff_file, code_file),
+                }
 
         test_results = list(map(json.loads, test_results))
         wheat_results = list(map(json.loads, wheat_results))
@@ -74,4 +84,3 @@ if __name__ == "__main__":
     shutil.rmtree("temp")
 
     print(json.dumps(results))
-
