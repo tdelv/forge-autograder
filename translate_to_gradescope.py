@@ -90,7 +90,7 @@ if __name__ == "__main__":
                 "score": chaffs_caught,
                 "max_score": len(sub_assignment["chaffs"]),
                 "name": f"Chaffs for {sub_assignment['name']}",
-                "output": f"Also, wheats {'failed' if wheat_fail_tests else 'passed'}"
+                "output": f"Also, wheats {'failed' if wheat_fail_tests else 'passed'}",
                 "visibility": "hidden",
             })
 
