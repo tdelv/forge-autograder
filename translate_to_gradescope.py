@@ -23,8 +23,8 @@ if __name__ == "__main__":
                 sub_results_tests.append({
                             "score": 0,
                             "max_score": 0 if passed else 1,
-                            "name": name,
-                            "number": f"{sub_assignment_number}.{test_suite_number}.{test_result_number}",
+                            "name": f"{sub_assignment['name']} test: name",
+                            #"number": f"{sub_assignment_number}.{test_suite_number}.{test_result_number}",
                             "output": "Test passed!" if passed else "Test failed.",
                             "visibility": "after_published",
                         })
@@ -33,7 +33,7 @@ if __name__ == "__main__":
                     "score": num_passed,
                     "max_score": total,
                     "name": f"Functionality for {sub_assignment['name']}",
-                    "number": f"{sub_assignment_number}.{test_suite_number}",
+                    #"number": f"{sub_assignment_number}.{test_suite_number}",
                     "visibility": "hidden",
                 })
             gradescope_results += sub_results_tests
@@ -47,7 +47,7 @@ if __name__ == "__main__":
                 gradescope_results.append({
                     "score": 0,
                     "max_score": 1,
-                    "name": f"{sub_assignment['name']}: wheat {wheat_number}",
+                    "name": f"{sub_assignment['name']}: wheat {wheat_number + 1}",
                     "output": f"Wheat failed on these tests:\n{failed}\n"\
                         + "These tests are invalid and cannot be used to catch chaffs.",
                     "visibility": "after_published",
@@ -56,7 +56,7 @@ if __name__ == "__main__":
                 gradescope_results.append({
                     "score": 0,
                     "max_score": 0,
-                    "name": f"{sub_assignment['name']}: wheat {wheat_number}",
+                    "name": f"{sub_assignment['name']}: wheat {wheat_number + 1}",
                     "output": f"Wheat passed!",
                     "visibility": "after_published",
                 })
@@ -70,7 +70,7 @@ if __name__ == "__main__":
                 gradescope_results.append({
                     "score": 0,
                     "max_score": 0,
-                    "name": f"{sub_assignment['name']}: chaff {chaff['name']}",
+                    "name": f"{sub_assignment['name']} chaff: {chaff['name']}",
                     "output": f"Chaff caught with these tests:\n{failed}",
                     "visibility": "after_published",
                 })
@@ -78,7 +78,7 @@ if __name__ == "__main__":
                 gradescope_results.append({
                     "score": 0,
                     "max_score": 1,
-                    "name": f"{sub_assignment['name']}: chaff {chaff['name']}",
+                    "name": f"{sub_assignment['name']} chaff: {chaff['name']}",
                     "output": f"Chaff not caught.",
                     "visibility": "after_published",
                 })
