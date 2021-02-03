@@ -8,16 +8,26 @@ def forge_to_grading(from_file, to_file, code_file):
     with open(from_file, "r") as f:
         from_contents = f.read()
 
-    to_contents = re.sub("#lang\s+forge/core", f"#lang forge/testme/core \"{code_file}\"", from_contents)
-    to_contents = re.sub("#lang\s+forge", f"#lang forge/testme \"{code_file}\"", to_contents)
+    to_contents = re.sub("#lang\s+forge/core", f"#lang forge/testme/core \"{code_file}\" -- a", from_contents)
+    to_contents = re.sub("#lang\s+forge", f"#lang forge/testme \"{code_file}\" -- a", to_contents)
 
     with open(to_file, "w") as f:
         f.write(to_contents)
 
+def forge_to_grading_hack(from_file, to_file):
+    with open(from_file, "r") as f:
+        from_contents = f.read()
+
+    to_contents = re.sub("#lang\s+forge/core", f"#lang forge/core -- a", from_contents)
+    to_contents = re.sub("#lang\s+forge", f"#lang forge -- a", to_contents)
+
+    with open(to_file, "w") as f:
+        f.write(to_contents)
 
 def run_pair(code_file, test_file):
-    shutil.copyfile(code_file, "temp/code.rkt")
+    #shutil.copyfile(code_file, "temp/code.rkt")
     forge_to_grading(test_file, "temp/test.rkt", "code.rkt")
+    forge_to_grading_hack(code_file, "temp/code.rkt")
     os.system("racket temp/test.rkt > temp/result")
 
     with open("temp/result", "r") as f:
