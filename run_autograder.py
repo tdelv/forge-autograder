@@ -57,6 +57,7 @@ if __name__ == "__main__":
 
         test_results = [run_pair(code_file, test_file) for test_file in glob.glob(f"{test_dir}/*")] if code else []
         wheat_results = []
+        chaff_results = []
         if tests:
             for wheat_file in glob.glob(f"{wheat_dir}/*"):
                 wheat_results.append({
