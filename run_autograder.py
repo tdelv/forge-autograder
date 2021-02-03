@@ -56,23 +56,21 @@ if __name__ == "__main__":
         chaff_dir = f"{sub_assignment_dir}/chaffs"
 
         test_results = [run_pair(code_file, test_file) for test_file in glob.glob(f"{test_dir}/*")] if code else []
+        test_results = list(map(json.loads, test_results))
+
         wheat_results = []
         chaff_results = []
         if tests:
             for wheat_file in glob.glob(f"{wheat_dir}/*"):
                 wheat_results.append({
                     "name": os.path.basename(wheat_file),
-                    "results": run_pair(wheat_file, code_file),
+                    "results": json.loads(run_pair(wheat_file, code_file)),
                 })
             for chaff_file in glob.glob(f"{chaff_dir}/*"):
                 chaff_results.append({
                     "name": os.path.basename(chaff_file),
-                    "results": run_pair(chaff_file, code_file),
+                    "results": json.loads(run_pair(chaff_file, code_file)),
                 })
-
-        test_results = list(map(json.loads, test_results))
-        wheat_results = list(map(json.loads, wheat_results))
-        chaff_results = list(map(json.loads, chaff_results))
 
         results.append({
                 "name": name,
