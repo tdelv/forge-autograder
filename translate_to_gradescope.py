@@ -77,7 +77,7 @@ if __name__ == "__main__":
             else:
                 gradescope_results.append({
                     "score": 0,
-                    "max_score": 0,
+                    "max_score": 1,
                     "name": f"{sub_assignment['name']}: chaff {chaff['name']}",
                     "output": f"Chaff not caught.",
                     "visibility": "after_published",
