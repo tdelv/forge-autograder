@@ -62,12 +62,12 @@ if __name__ == "__main__":
                 wheat_results.append({
                     "name": os.path.basename(wheat_file),
                     "results": run_pair(wheat_file, code_file),
-                }
+                })
             for chaff_file in glob.glob(f"{chaff_dir}/*"):
                 chaff_results.append({
                     "name": os.path.basename(chaff_file),
                     "results": run_pair(chaff_file, code_file),
-                }
+                })
 
         test_results = list(map(json.loads, test_results))
         wheat_results = list(map(json.loads, wheat_results))
