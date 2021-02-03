@@ -33,6 +33,6 @@ apt-get clean
 
 git clone https://github.com/tnelson/Forge.git
 cd Forge/forge
-git checkout no-state
+git checkout grading
 raco pkg install --auto --no-docs
 
