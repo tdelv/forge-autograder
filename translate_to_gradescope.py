@@ -23,7 +23,7 @@ if __name__ == "__main__":
                 sub_results_tests.append({
                             "score": 0,
                             "max_score": 0 if passed else 1,
-                            "name": f"{sub_assignment['name']} test: name",
+                            "name": f"{sub_assignment['name']} test: {name}",
                             #"number": f"{sub_assignment_number}.{test_suite_number}.{test_result_number}",
                             "output": "Test passed!" if passed else "Test failed.",
                             "visibility": "after_published",
