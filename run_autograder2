@@ -15,9 +15,9 @@ git pull
 # Run the actual autograder
 cd /autograder/source
 rm -rf temp
-python3 run_autograder.py /autograder/submission/ /autograder/source/lfs/ /autograder/source/assignment_data.json
+python3 run_autograder.py /autograder/submission/ /autograder/source/lfs/ /autograder/source/assignment_data.json >/autograder/results/intermediate-results.json
 
-
+python3 translate_to_gradescope.py /autograder/results/intermediate-results.json /autograder/results/results.json
 
 
 # cd /autograder/source/autograder
