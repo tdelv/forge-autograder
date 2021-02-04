@@ -2,6 +2,7 @@ import sys
 import json
 import time
 import datetime
+import dateutil.parser
 
 def parse_command_line():
     if len(sys.argv) != 2:
@@ -22,7 +23,7 @@ def main():
     else:
         due_date = data["assignment"]["due_date"]
 
-    unix_due_date = datetime.datetime.fromisoformat(due_date).timestamp()
+    unix_due_date = dateutil.parser.isoparse(due_date).timestamp()
 
     if time.time() < unix_due_date:
         print("true")
