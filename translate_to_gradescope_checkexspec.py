@@ -14,8 +14,7 @@ if __name__ == "__main__":
     gradescope_results = []
     summary_results = []
 
-    sub_assignments = [sub_assignment["name"] for sub_assignment in assignment_data["sub_assignments"] \
-                                              if sub_assignment["check-ex-spec"]]
+    sub_assignments = filter(lambda sub_assignment: sub_assignment["check-ex-spec"], assignment_data["sub_assignments"])
     
 
     for sub_assignment_number, sub_assignment in enumerate(sub_assignments):
