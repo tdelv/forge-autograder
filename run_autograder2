@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-cd /autograder/source
-source ./config.sh
+# cd /autograder/source
+# source ./config.sh
 
 # Update assignment files
 cd /autograder/source/lfs
@@ -17,7 +17,18 @@ cd /autograder/source
 rm -rf temp
 python3 run_autograder.py /autograder/submission/ /autograder/source/lfs/ /autograder/source/assignment_data.json >/autograder/results/intermediate-results.json
 
-python3 translate_to_gradescope.py /autograder/results/intermediate-results.json /autograder/results/results.json
+# Find whether due date has past
+BEFORE_LATE_DEADLINE=$(python3 /autograder/source/is_before_late_deadline.py /autograder/submission_metadata.json)
+
+# "$EXAMPLAR" = true &&
+if [[ "$BEFORE_LATE_DEADLINE" = true ]]
+then
+  TRANSLATOR="translate_to_gradescope_checkexspec.py /autograder/source/assignment_data.json"
+else
+  TRANSLATOR=translate_to_gradescope.py
+fi
+
+python3 $TRANSLATOR /autograder/results/intermediate-results.json /autograder/results/results.json
 
 
 # cd /autograder/source/autograder

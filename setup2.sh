@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-cd /autograder/source
-source ./config.sh
+# cd /autograder/source
+# source ./config.sh
 
 mkdir -p /root/.ssh
 cp ssh_config /root/.ssh/config
