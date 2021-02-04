@@ -18,7 +18,7 @@ if __name__ == "__main__":
     
 
     for sub_assignment_number, sub_assignment in enumerate(sub_assignments):
-        sub_results = filter(lambda sub_results: sub_results["name"] == sub_assignment["name"], raw_results)[0]
+        sub_results = next(filter(lambda sub_results: sub_results["name"] == sub_assignment["name"], raw_results))
         # for test_suite_number, test_suite in enumerate(sub_assignment["functionality"]):
         #     sub_results_tests = []
         #     num_passed, total = 0, 0
