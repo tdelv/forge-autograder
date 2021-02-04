@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-cd /autograder/source
-source ./config.sh
+# cd /autograder/source
+# source ./config.sh
 
 # Update assignment files
 cd /autograder/source/lfs

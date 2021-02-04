@@ -11,7 +11,7 @@ def parse_command_line():
 
 def load_file(path):
     with open(path, "r") as f:
-        return json.read(f)
+        return json.load(f)
 
 def main():
     meta_data_file = parse_command_line()
