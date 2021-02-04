@@ -14,9 +14,6 @@ def forge_to_grading(from_file, to_file, code_file):
     with open(to_file, "w") as f:
         f.write(to_contents)
 
-    print(f"from_file: {from_file}")
-    print(f"to_contents: {to_contents}")
-
 def forge_to_grading_hack(from_file, to_file):
     with open(from_file, "r") as f:
         from_contents = f.read()
