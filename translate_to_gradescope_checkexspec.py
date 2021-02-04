@@ -6,7 +6,7 @@ if __name__ == "__main__":
     (_, assignment_data_file, from_file, to_file) = sys.argv
 
     with open(assignment_data_file, "r") as f:
-        assignment_data = f.read()
+        assignment_data = json.loads(f.read())
 
     with open(from_file, "r") as f:
         raw_results = json.loads(f.read())
