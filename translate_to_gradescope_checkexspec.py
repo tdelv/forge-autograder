@@ -53,13 +53,14 @@ if __name__ == "__main__":
             failed = {test["name"] for test in wheat_results if not test["passed?"]}
             if failed:
                 wheat_fail_tests = wheat_fail_tests.union(failed)
+
                 gradescope_results.append({
                     "score": 0,
                     "max_score": 1,
                     "name": f"{sub_results['name']}: wheat {wheat_number + 1}",
                     "output": f"Wheat failed on these tests:\n{failed}\n"\
                         + "These tests are invalid and cannot be used to catch chaffs.",
-                    "visibility": "visible",
+                    "visibility": "visible" if sub_assignment["check-ex-spec"] else "after_published",
                 })
             else:
                 gradescope_results.append({
@@ -67,7 +68,7 @@ if __name__ == "__main__":
                     "max_score": 0,
                     "name": f"{sub_results['name']}: wheat {wheat_number + 1}",
                     "output": f"Wheat passed!",
-                    "visibility": "visible",
+                    "visibility": "visible" if sub_assignment["check-ex-spec"] else "after_published",
                 })
 
         chaffs_caught = 0
@@ -79,13 +80,14 @@ if __name__ == "__main__":
             if failed:
                 chaffs_caught += 1
                 # FOR STUDENTS
-                gradescope_results.append({
-                    "score": 0,
-                    "max_score": 0,
-                    "name": f"{sub_results['name']}: chaff {chaff_number + 1}",
-                    "output": f"Chaff caught with these tests:\n{failed}",
-                    "visibility": "visible",
-                })
+                if sub_assignment["check-ex-spec"]:
+                    gradescope_results.append({
+                        "score": 0,
+                        "max_score": 0,
+                        "name": f"{sub_results['name']}: chaff {chaff_number + 1}",
+                        "output": f"Chaff caught with these tests:\n{failed}",
+                        "visibility": "visible",
+                    })
                 # FOR TAs
                 gradescope_results.append({
                     "score": 0,
@@ -96,13 +98,14 @@ if __name__ == "__main__":
                 })
             else:
                 # FOR STUDENTS
-                gradescope_results.append({
-                    "score": 0,
-                    "max_score": 1,
-                    "name": f"{sub_results['name']}: chaff {chaff_number + 1}",
-                    "output": f"Chaff not caught.",
-                    "visibility": "visible",
-                })
+                if sub_assignment["check-ex-spec"];
+                    gradescope_results.append({
+                        "score": 0,
+                        "max_score": 1,
+                        "name": f"{sub_results['name']}: chaff {chaff_number + 1}",
+                        "output": f"Chaff not caught.",
+                        "visibility": "visible",
+                    })
                 # FOR TAs
                 gradescope_results.append({
                     "score": 0,
