@@ -17,7 +17,15 @@ cd /autograder/source
 rm -rf temp
 python3 run_autograder.py /autograder/submission/ /autograder/source/lfs/ /autograder/source/assignment_data.json >/autograder/results/intermediate-results.json
 
-python3 translate_to_gradescope.py /autograder/results/intermediate-results.json /autograder/results/results.json
+# "$EXAMPLAR" = true &&
+if [[ "$BEFORE_LATE_DEADLINE" = true ]]
+then
+  TRANSLATOR=translate_to_gradescope_examplar.py
+else
+  TRANSLATOR=translate_to_gradescope.py
+fi
+
+python3 $TRANSLATOR /autograder/results/intermediate-results.json /autograder/results/results.json
 
 
 # cd /autograder/source/autograder
