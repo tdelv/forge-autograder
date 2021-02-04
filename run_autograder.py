@@ -4,12 +4,12 @@ import re
 import json
 import glob
 
-def forge_to_grading(from_file, to_file, code_file):
+def forge_to_grading(from_file, to_file, code_file, provided):
     with open(from_file, "r") as f:
         from_contents = f.read()
 
-    to_contents = re.sub("#lang\s+forge/core", f"#lang forge/testme/core \"{code_file}\" -- a", from_contents)
-    to_contents = re.sub("#lang\s+forge", f"#lang forge/testme \"{code_file}\" -- a", to_contents)
+    to_contents = re.sub("#lang\s+forge/core", f"#lang forge/testme/core \"{code_file}\" {provided} -- a", from_contents)
+    to_contents = re.sub("#lang\s+forge", f"#lang forge/testme \"{code_file}\" {provided} -- a", to_contents)
 
     with open(to_file, "w") as f:
         f.write(to_contents)
@@ -24,9 +24,9 @@ def forge_to_grading_hack(from_file, to_file):
     with open(to_file, "w") as f:
         f.write(to_contents)
 
-def run_pair(code_file, test_file):
+def run_pair(code_file, test_file, provided):
     #shutil.copyfile(code_file, "temp/code.rkt")
-    forge_to_grading(test_file, "temp/test.rkt", "code.rkt")
+    forge_to_grading(test_file, "temp/test.rkt", "code.rkt", provided)
     forge_to_grading_hack(code_file, "temp/code.rkt")
     os.system("racket temp/test.rkt > temp/result")
 
@@ -57,6 +57,7 @@ if __name__ == "__main__":
     for sub_assignment in sub_assignments:
         name, file = sub_assignment["name"], sub_assignment["file"]
         code, tests = sub_assignment["code"], sub_assignment["tests"]
+        provided = "(" + " ".join(sub_assignment["provides"])  + ")"
 
         sub_assignment_dir = f"{lfs_folder}/{year}/{assignment_name}/{name}"
 
@@ -65,7 +66,7 @@ if __name__ == "__main__":
         wheat_dir = f"{sub_assignment_dir}/wheats"
         chaff_dir = f"{sub_assignment_dir}/chaffs"
 
-        test_results = [run_pair(code_file, test_file) for test_file in glob.glob(f"{test_dir}/*")] if code else []
+        test_results = [run_pair(code_file, test_file, provided) for test_file in glob.glob(f"{test_dir}/*")] if code else []
         test_results = list(map(json.loads, test_results))
 
         wheat_results = []
@@ -74,12 +75,12 @@ if __name__ == "__main__":
             for wheat_file in glob.glob(f"{wheat_dir}/*"):
                 wheat_results.append({
                     "name": os.path.basename(wheat_file),
-                    "results": json.loads(run_pair(wheat_file, code_file)),
+                    "results": json.loads(run_pair(wheat_file, code_file, provided)),
                 })
             for chaff_file in glob.glob(f"{chaff_dir}/*"):
                 chaff_results.append({
                     "name": os.path.basename(chaff_file),
-                    "results": json.loads(run_pair(chaff_file, code_file)),
+                    "results": json.loads(run_pair(chaff_file, code_file, provided)),
                 })
 
         results.append({
