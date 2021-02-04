@@ -2,7 +2,7 @@ import sys
 import json
 
 if __name__ == "__main__":
-    assert len(sys.argv) == 3, "Usage: python3 translate_to_gradescope_checkexspec.py <assignment_data> <from> <to>"
+    assert len(sys.argv) == 4, "Usage: python3 translate_to_gradescope_checkexspec.py <assignment_data> <from> <to>"
     (_, assignment_data_file, from_file, to_file) = sys.argv
 
     with open(assignment_data_file, "r") as f:
