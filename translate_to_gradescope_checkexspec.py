@@ -2,8 +2,11 @@ import sys
 import json
 
 if __name__ == "__main__":
-    assert len(sys.argv) == 3, "Usage: python3 translate_to_gradescope.py <from> <to>"
-    (_, from_file, to_file) = sys.argv
+    assert len(sys.argv) == 3, "Usage: python3 translate_to_gradescope_checkexspec.py <assignment_data> <from> <to>"
+    (_, assignment_data_file, from_file, to_file) = sys.argv
+
+    with open(assignment_data_file, "r") as f:
+        assignment_data = f.read()
 
     with open(from_file, "r") as f:
         raw_results = json.loads(f.read())
@@ -11,7 +14,11 @@ if __name__ == "__main__":
     gradescope_results = []
     summary_results = []
 
-    for sub_assignment_number, sub_assignment in enumerate(raw_results):
+    sub_assignments = [sub_assignment["name"] for sub_assignment in assignment_data["sub_assignments"] \
+                                              if sub_assignment["check-ex-spec"]]
+    
+
+    for sub_assignment_number, sub_assignment in enumerate(sub_assignments):
         # for test_suite_number, test_suite in enumerate(sub_assignment["functionality"]):
         #     sub_results_tests = []
         #     num_passed, total = 0, 0

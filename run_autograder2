@@ -23,7 +23,7 @@ BEFORE_LATE_DEADLINE=$(python3 /autograder/source/is_before_late_deadline.py /au
 # "$EXAMPLAR" = true &&
 if [[ "$BEFORE_LATE_DEADLINE" = true ]]
 then
-  TRANSLATOR=translate_to_gradescope_examplar.py
+  TRANSLATOR="translate_to_gradescope_checkexspec.py /autograder/source/assignment_data.json"
 else
   TRANSLATOR=translate_to_gradescope.py
 fi
