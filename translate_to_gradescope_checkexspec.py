@@ -98,7 +98,7 @@ if __name__ == "__main__":
                 })
             else:
                 # FOR STUDENTS
-                if sub_assignment["check-ex-spec"];
+                if sub_assignment["check-ex-spec"]:
                     gradescope_results.append({
                         "score": 0,
                         "max_score": 1,
