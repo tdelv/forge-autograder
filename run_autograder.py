@@ -66,6 +66,10 @@ if __name__ == "__main__":
         wheat_dir = f"{sub_assignment_dir}/wheats"
         chaff_dir = f"{sub_assignment_dir}/chaffs"
 
+        if not os.path.exists(code_file):
+            # if student doesn't submit the file, don't just fail
+            continue
+
         test_results = [run_pair(code_file, test_file, provided) for test_file in glob.glob(f"{test_dir}/*")] if code else []
         test_results = list(map(json.loads, test_results))
 
