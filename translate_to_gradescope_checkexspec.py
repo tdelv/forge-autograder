@@ -19,7 +19,7 @@ if __name__ == "__main__":
     missing_files = []
     for sub_assignment_number, sub_assignment in enumerate(sub_assignments):
         try:
-            sub_results = filter(lambda sub_results: sub_results["name"] == sub_assignment["name"], raw_results)
+            sub_results = next(filter(lambda sub_results: sub_results["name"] == sub_assignment["name"], raw_results))
         except:
             missing_files.append(sub_assignment["name"])
             continue
