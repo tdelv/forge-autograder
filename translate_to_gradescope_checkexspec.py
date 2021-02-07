@@ -12,14 +12,18 @@ if __name__ == "__main__":
         raw_results = json.loads(f.read())
 
     gradescope_results = []
-    summary_results = [] 
+    summary_results = []
 
     sub_assignments = assignment_data["sub_assignments"]
-    
 
+    missing_files = []
     for sub_assignment_number, sub_assignment in enumerate(sub_assignments):
-        sub_results = next(filter(lambda sub_results: sub_results["name"] == sub_assignment["name"], raw_results))
-        
+        try:
+            sub_results = next(filter(lambda sub_results: sub_results["name"] == sub_assignment["name"], raw_results))
+        except:
+            missing_files.append(sub_assignment["name"])
+            continue
+
         for test_suite_number, test_suite in enumerate(sub_results["functionality"]):
             sub_results_tests = []
             num_passed, total = 0, 0
@@ -125,10 +129,15 @@ if __name__ == "__main__":
 
     gradescope_results += summary_results
 
+    if missing_files:
+        message = "The autograder ran successfully, but you were missing files for the following problems:\n"\
+            + ", ".join(missing_files) + "\nIf you meant to submit these, check the file names and resubmit."
+    else:
+        message = "Your code ran successfully! See check-ex-spec results below."
 
     full_report = {
             "score": 0,
-            "output": "Your code ran successfully! See check-ex-spec results below.",
+            "output": message,
             "visibility": "visible",
             "stdout_visibility": "hidden",
             "tests": gradescope_results,
