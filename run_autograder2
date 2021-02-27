@@ -10,7 +10,7 @@ git pull origin master
 # Update forge
 cd /autograder/Forge
 git pull
-git checkout 542c1d051dcc131b7cc71e6cc79df9726dcbcd35
+git checkout bca35999c73787846fd03f6d1ef196e0c53ff816
  
 
 # Run the actual autograder
