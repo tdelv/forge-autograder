@@ -10,7 +10,10 @@ git pull origin master
 # Update forge
 cd /autograder/Forge
 git pull
- 
+
+# Clean forge
+cd /autograder/Forge/forge
+bash clean.sh
 
 # Run the actual autograder
 cd /autograder/source
