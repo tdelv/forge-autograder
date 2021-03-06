@@ -9,6 +9,8 @@ git pull origin master
 
 # Update forge
 cd /autograder/Forge
+git fetch
+python3 get_forge_commit.py | xargs git checkout
 git pull
 
 # Clean forge
