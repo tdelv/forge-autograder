@@ -2,7 +2,7 @@ import json
 
 def main():
     with open("/autograder/source/assignment_data.json", "r") as f:
-        data = json.loadsd(f.read())["assignment_name"]
+        data = json.loads(f.read())["assignment_name"]
 
     assert "assignment_name" in data, "assignment_data.json missing assignment"
     assignment = data["assignment_name"]
